@@ -1,0 +1,13 @@
+- name: Tear down existing certbot service
+  docker_compose:
+    project_src: "/home/{{ user }}/nginx_conf/docker"
+    state: absent
+    remove_images: local
+    services: certbot
+
+- name: Create and start certbot service
+  docker_compose:
+    project_src: "/home/{{ user }}/nginx_conf/docker"
+    build: yes
+    services: certbot
+  register: output

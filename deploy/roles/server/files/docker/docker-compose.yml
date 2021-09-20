@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+# Nginx server
+  nginx:
+    restart: always
+    container_name: nginx_container
+    volumes:
+      - /root/nginx_conf/certs-data/:/data/letsencrypt/
+    build:
+      context: .
+      dockerfile: nginx.conf
+    ports:
+      - "80:80"
+
+# Keys generation
+  certbot:
+    restart: always
+    container_name: certbot_container
+    volumes:
+      - /root/nginx_conf/certs-data/:/data/letsencrypt/
+    build:
+      context: .
+      dockerfile: certbot.conf

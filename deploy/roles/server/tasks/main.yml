@@ -1,0 +1,13 @@
+- name: Копируем локальный конфиг
+  ansible.builtin.copy:
+    src: "docker"
+    dest: "/home/{{ user }}/nginx_conf"
+  tags: [nginx, keys]
+
+- name: Запуск nginx
+  import_tasks: nginx.yml
+  tags: nginx
+
+- name: Настройка и генерация ключей
+  import_tasks: certbot.yml
+  tags: keys

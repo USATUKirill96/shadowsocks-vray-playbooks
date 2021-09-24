@@ -5,7 +5,8 @@ services:
     restart: always
     container_name: nginx_container
     volumes:
-      - /root/nginx_conf/certs-data/:/data/letsencrypt/
+      - ~/nginx_conf/certs-data/letsencrypt/:/data/letsencrypt/:ro
+      - ~/nginx_conf/certs-data/certs/:/data/certs/:ro
     build:
       context: .
       dockerfile: nginx.conf
@@ -14,10 +15,13 @@ services:
 
 # Keys generation
   certbot:
-    restart: always
     container_name: certbot_container
     volumes:
-      - /root/nginx_conf/certs-data/:/data/letsencrypt/
+      - ~/nginx_conf/certs-data/letsencrypt/:/data/letsencrypt/:rw
+      - ~/nginx_conf/certs-data/certs/:/etc/letsencrypt/live/usatukirill96.linkpc.net/:rw
     build:
       context: .
       dockerfile: certbot.conf
+    ports:
+      - 5001:5001
+    command: certbot certonly --webroot -w /data/letsencrypt/ -d usatukirill96.linkpc.net -d www.usatukirill96.linkpc.net --non-interactive --agree-tos -m usatukirill96@protonmail.com

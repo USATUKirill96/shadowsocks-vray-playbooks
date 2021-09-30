@@ -9,19 +9,18 @@ services:
       - ~/nginx_conf/certs-data/certs/:/data/certs/:ro
     build:
       context: .
-      dockerfile: nginx.conf
+      dockerfile: ./nginx/Dockerfile
     ports:
       - "80:80"
 
-# Keys generation
+# Cert generation
   certbot:
     container_name: certbot_container
     volumes:
       - ~/nginx_conf/certs-data/letsencrypt/:/data/letsencrypt/:rw
-      - ~/nginx_conf/certs-data/certs/:/etc/letsencrypt/live/usatukirill96.linkpc.net/:rw
+      - ~/nginx_conf/certs-data/certs/:/etc/letsencrypt/live/${HOST}/:rw
     build:
       context: .
-      dockerfile: certbot.conf
+      dockerfile: ./certbot/Dockerfile
     ports:
       - 5001:5001
-    command: certbot certonly --webroot -w /data/letsencrypt/ -d usatukirill96.linkpc.net -d www.usatukirill96.linkpc.net --non-interactive --agree-tos -m usatukirill96@protonmail.com

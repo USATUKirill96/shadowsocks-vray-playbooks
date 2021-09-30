@@ -1,0 +1,3 @@
+echo "Генерация ключей"
+
+certbot certonly --webroot -w /data/letsencrypt/ -d {{ host }} -d www.{{ host }} --non-interactive --agree-tos -m {{ email }}

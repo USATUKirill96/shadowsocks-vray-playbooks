@@ -1,13 +1,11 @@
-- name: Tear down existing nginx service
-  docker_compose:
-    project_src: "/home/{{ user }}/nginx_conf/docker"
-    state: absent
-    remove_images: local
-    services: "nginx"
+- name: Setting nginx.conf file
+  template:
+    src: "nginx.j2"
+    dest: "~/nginx_conf/docker/nginx/default.conf"
 
 - name: Create and start nginx service
   docker_compose:
-    project_src: "/home/{{ user }}/nginx_conf/docker"
+    project_src: "~/nginx_conf/docker"
     build: yes
     services: "nginx"
   register: output

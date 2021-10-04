@@ -1,4 +1,4 @@
-- name: Copy local files
+- name: Copying local files
   ansible.builtin.copy:
     src: "docker"
     dest: "~/nginx_conf"
@@ -9,10 +9,10 @@
     src: "env.j2"
     dest: "~/nginx_conf/docker/.env"
 
-- name: Run nginx
+- name: Running nginx
   import_tasks: nginx.yml
   tags: nginx
 
-- name: Setup cert generation
+- name: Seting cert generation
   import_tasks: certbot.yml
   tags: keys

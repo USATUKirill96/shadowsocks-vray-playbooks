@@ -1,0 +1,13 @@
+server {  
+  listen 0.0.0.0:80;
+
+  server_name {{ host }};
+  
+  allow all;
+
+  location ^~/.well-known{
+    allow all;
+    root /data/letsencrypt/;
+  }
+
+}

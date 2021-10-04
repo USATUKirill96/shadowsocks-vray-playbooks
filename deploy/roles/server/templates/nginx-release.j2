@@ -1,5 +1,4 @@
 server {  
-  listen 0.0.0.0:80;
   listen 0.0.0.0:443 ssl;
 
   server_name {{ host }};
@@ -14,9 +13,6 @@ server {
     root /data/letsencrypt/;
   }
 
-  location / {
-    return 404;
-  }
 
   location = /ss {
 		if ($http_upgrade != "websocket") { 
@@ -29,5 +25,15 @@ server {
 		proxy_set_header Connection "upgrade";
 		proxy_set_header Host $http_host;
 	}
+
+}
+
+server {
+
+  listen 80 default_server;
+
+  server_name _;
+
+  return 301 https://$host$request_uri;
 
 }

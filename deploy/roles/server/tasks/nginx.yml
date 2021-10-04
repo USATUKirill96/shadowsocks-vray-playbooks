@@ -1,9 +1,9 @@
 - name: Setting nginx.conf file
   template:
-    src: "nginx.j2"
+    src: "nginx-release.j2"
     dest: "~/nginx_conf/docker/nginx/default.conf"
 
-- name: Create and start nginx service
+- name: Running nginx service
   docker_compose:
     project_src: "~/nginx_conf/docker"
     build: yes

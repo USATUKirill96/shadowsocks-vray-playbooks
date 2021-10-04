@@ -1,18 +1,35 @@
-- name: Copy cron config
+- name: Copying cron config
   template:
     src: "cron-task.j2"
     dest: "~/nginx_conf/docker/certbot/cron-task.sh"
 
-- name: Run certbot container and generate keys
+- name: Using base nginx config for certificate generation
+  template:
+    src: "nginx-certgen.j2"
+    dest: "~/nginx_conf/docker/nginx/default.conf"
+
+- name: Restarting nginx 
+  docker_compose:
+    project_src: "~/nginx_conf/docker"
+    build: yes
+    services: "nginx"
+  register: output
+
+- name: Generating certificate
   docker_compose:
     project_src: "~/nginx_conf/docker"
     build: yes
     services: certbot
   register: output
 
-- name: Restart nginx container
+- name: Changing nginx config to release
+  template:
+    src: "nginx-release.j2"
+    dest: "~/nginx_conf/docker/nginx/default.conf"
+
+- name: Restarting nginx
   docker_compose:
     project_src: "~/nginx_conf/docker"
-    restarted: yes
+    build: yes
     services: "nginx"
   register: output

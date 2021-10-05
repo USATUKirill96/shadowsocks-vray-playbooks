@@ -2,7 +2,7 @@
   ansible.builtin.copy:
     src: "docker"
     dest: "~/nginx_conf"
-  tags: [nginx, keys]
+  tags: [nginx, keys, shadowsocks]
 
 - name: Setting .env file
   template:
@@ -16,3 +16,7 @@
 - name: Seting cert generation
   import_tasks: certbot.yml
   tags: keys
+
+- name: Running shadowsocks proxy server
+  import_tasks: shadowsocks.yml
+  tags: shadowsocks

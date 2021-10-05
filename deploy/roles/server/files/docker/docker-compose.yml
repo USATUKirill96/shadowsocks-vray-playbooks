@@ -1,19 +1,20 @@
 version: "3.3"
 services:
+
 # Nginx server
   nginx:
     restart: always
     container_name: nginx_container
+    image: nginx
     volumes:
       - ~/nginx_conf/certs-data/letsencrypt/:/data/letsencrypt/:ro
       - ~/nginx_conf/certs-data/certs/:/data/certs/:ro
-    build:
-      context: .
-      dockerfile: ./nginx/Dockerfile
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf/:ro
     ports:
       - "80:80"
 
-# Cert generation
+
+# Certificate generation
   certbot:
     container_name: certbot_container
     volumes:
@@ -24,3 +25,12 @@ services:
       dockerfile: ./certbot/Dockerfile
     ports:
       - 5001:5001
+
+
+# Shadowsocks server
+  shadowsocks:
+    container_name: shadowsocks_container
+    image: teddysun/shadowsocks-rust
+    restart: always
+    volumes:
+      - ./shadowsocks/config.json:/etc/shadowsocks-rust/config.json

@@ -5,8 +5,8 @@ server {
   
   allow all;
 
-  ssl_certificate /data/certs/cert.pem;
-  ssl_certificate_key /data/certs/key.pem;
+  ssl_certificate /data/certs/fullchain.pem;
+  ssl_certificate_key /data/certs/privkey.pem;
 
   location ^~/.well-known{
     allow all;
@@ -20,7 +20,7 @@ server {
 		}
 		proxy_redirect off;
 		proxy_http_version 1.1;
-		proxy_pass https://127.0.0.1:8388/;
+		proxy_pass https://127.0.0.1:9000/;
 		proxy_set_header Upgrade $http_upgrade;
 		proxy_set_header Connection "upgrade";
 		proxy_set_header Host $http_host;

@@ -35,3 +35,4 @@ services:
     restart: always
     volumes:
       - ./shadowsocks/config.json:/etc/shadowsocks-rust/config.json/:ro
+      - ~/nginx_conf/certs-data/certs/:/data/certs/:ro

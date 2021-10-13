@@ -3,6 +3,13 @@
     src: "shadowsocks-config.j2"
     dest: "~/nginx_conf/docker/shadowsocks/config.json"
 
+- name: Stopping shadowsocks service
+  docker_compose:
+    project_src: "~/nginx_conf/docker"
+    stopped: yes
+    services: "shadowsocks"
+  register: output
+
 - name: Running shadowsocks service
   docker_compose:
     project_src: "~/nginx_conf/docker"

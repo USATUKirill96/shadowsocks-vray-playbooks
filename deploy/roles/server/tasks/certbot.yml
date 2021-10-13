@@ -8,6 +8,13 @@
     src: "nginx-certgen.j2"
     dest: "~/nginx_conf/docker/nginx/default.conf"
 
+- name: Stopping nginx 
+  docker_compose:
+    project_src: "~/nginx_conf/docker"
+    stopped: yes
+    services: "nginx"
+  register: output
+
 - name: Restarting nginx 
   docker_compose:
     project_src: "~/nginx_conf/docker"
@@ -26,6 +33,13 @@
   template:
     src: "nginx-release.j2"
     dest: "~/nginx_conf/docker/nginx/default.conf"
+
+- name: Stopping nginx
+  docker_compose:
+    project_src: "~/nginx_conf/docker"
+    stopped: yes
+    services: "nginx"
+  register: output
 
 - name: Restarting nginx
   docker_compose:

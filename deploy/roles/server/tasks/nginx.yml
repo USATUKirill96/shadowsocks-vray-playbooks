@@ -3,6 +3,14 @@
     src: "nginx-release.j2"
     dest: "~/nginx_conf/docker/nginx/default.conf"
 
+
+- name: Stopping nginx service
+  docker_compose:
+    project_src: "~/nginx_conf/docker"
+    stopped: yes
+    services: "nginx"
+  register: output
+
 - name: Running nginx service
   docker_compose:
     project_src: "~/nginx_conf/docker"

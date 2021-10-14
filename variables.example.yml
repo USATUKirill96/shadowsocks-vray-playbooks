@@ -1,4 +1,4 @@
 user: server_user
-host: yourserver.domant.net
+host: yourserver.domain.net
 email: youremail@provider.com
-password: yourpassword
+proxy_password: yourpassword

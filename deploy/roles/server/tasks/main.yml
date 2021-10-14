@@ -13,7 +13,7 @@
   import_tasks: nginx.yml
   tags: nginx
 
-- name: Seting cert generation
+- name: Seting certificate generation
   import_tasks: certbot.yml
   tags: keys
 

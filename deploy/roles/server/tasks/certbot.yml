@@ -3,24 +3,20 @@
     src: "cron-task.j2"
     dest: "~/nginx_conf/docker/certbot/cron-task.sh"
 
+
 - name: Using base nginx config for certificate generation
   template:
     src: "nginx-certgen.j2"
     dest: "~/nginx_conf/docker/nginx/default.conf"
 
-- name: Stopping nginx 
-  docker_compose:
-    project_src: "~/nginx_conf/docker"
-    stopped: yes
-    services: "nginx"
-  register: output
 
 - name: Restarting nginx 
   docker_compose:
     project_src: "~/nginx_conf/docker"
-    build: yes
+    restarted: yes
     services: "nginx"
   register: output
+
 
 - name: Generating certificate
   docker_compose:
@@ -29,21 +25,16 @@
     services: certbot
   register: output
 
+
 - name: Changing nginx config to release
   template:
     src: "nginx-release.j2"
     dest: "~/nginx_conf/docker/nginx/default.conf"
 
-- name: Stopping nginx
-  docker_compose:
-    project_src: "~/nginx_conf/docker"
-    stopped: yes
-    services: "nginx"
-  register: output
 
 - name: Restarting nginx
   docker_compose:
     project_src: "~/nginx_conf/docker"
-    build: yes
+    restarted: yes
     services: "nginx"
   register: output

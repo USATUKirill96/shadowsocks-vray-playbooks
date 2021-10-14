@@ -2,3 +2,6 @@ user: server_user
 host: yourserver.domain.net
 email: youremail@provider.com
 proxy_password: yourpassword
+method: chacha20-ietf-poly1305
+local_port: 8000
+fast_open: true

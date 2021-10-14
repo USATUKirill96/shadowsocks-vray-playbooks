@@ -1,0 +1,5 @@
+- hosts: local
+  name: Генерация конфигов для клиента
+
+  roles:
+    - role: client

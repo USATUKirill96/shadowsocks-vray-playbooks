@@ -7,4 +7,3 @@ local_port: 8000
 fast_open: true
 endpoint: ss
 enable_firewall: yes
-flush_iptables: yes

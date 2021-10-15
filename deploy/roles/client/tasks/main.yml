@@ -7,12 +7,14 @@
   template:
     src: "shadowsocks-libev.j2"
     dest: "../client-config/shadowsocks-libev.json"
+    force: yes
 
 
 - name: Templating shadowsocks windows/mobile config
   template:
     src: "config.j2"
     dest: "../client-config/config.json"
+    force: yes
 
 - name: Generating qr code for client setup
   script: 

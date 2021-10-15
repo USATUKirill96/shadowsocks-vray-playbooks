@@ -1,12 +1,12 @@
 - name: Setting nginx.conf file
   template:
     src: "nginx-release.j2"
-    dest: "~/nginx_conf/docker/nginx/default.conf"
+    dest: "~/shadowsocks_config/docker/nginx/default.conf"
 
 
 - name: Building nginx service
   docker_compose:
-    project_src: "~/nginx_conf/docker"
+    project_src: "~/shadowsocks_config/docker"
     build: yes
     services: "nginx"
   register: output
@@ -14,7 +14,7 @@
 
 - name: Restarting nginx service
   docker_compose:
-    project_src: "~/nginx_conf/docker"
+    project_src: "~/shadowsocks_config/docker"
     restarted: yes
     services: "nginx"
   register: output

@@ -1,12 +1,12 @@
 - name: Setting config.json file
   template:
     src: "shadowsocks-config.j2"
-    dest: "~/nginx_conf/docker/shadowsocks/config.json"
+    dest: "~/shadowsocks_config/docker/shadowsocks/config.json"
 
 
 - name: Building shadowsocks service
   docker_compose:
-    project_src: "~/nginx_conf/docker"
+    project_src: "~/shadowsocks_config/docker"
     build: yes
     services: "shadowsocks"
   register: output
@@ -14,7 +14,7 @@
 
 - name: Restarting shadowsocks service
   docker_compose:
-    project_src: "~/nginx_conf/docker"
+    project_src: "~/shadowsocks_config/docker"
     restarted: yes
     services: "shadowsocks"
   register: output

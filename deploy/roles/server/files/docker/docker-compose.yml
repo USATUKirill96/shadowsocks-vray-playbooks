@@ -8,22 +8,21 @@ services:
     image: nginx
     network_mode: host
     volumes:
-      - ~/nginx_conf/certs-data/letsencrypt/:/data/letsencrypt/:ro
-      - ~/nginx_conf/certs-data/certs/:/data/certs/:ro
+      - ~/shadowsocks_config/certs-data/letsencrypt/:/data/letsencrypt/:ro
+      - ~/shadowsocks_config/certs-data/certs/:/data/certs/:ro
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf/:rw
 
 
 # Certificate generation
   certbot:
     container_name: certbot_container
+    network_mode: host
     volumes:
-      - ~/nginx_conf/certs-data/letsencrypt/:/data/letsencrypt/:rw
-      - ~/nginx_conf/certs-data/certs/:/etc/letsencrypt/:rw
+      - ~/shadowsocks_config/certs-data/letsencrypt/:/data/letsencrypt/:rw
+      - ~/shadowsocks_config/certs-data/certs/:/etc/letsencrypt/:rw
     build:
       context: .
       dockerfile: ./certbot/Dockerfile
-    ports:
-      - 5001:5001
 
 
 # Shadowsocks server
@@ -33,5 +32,5 @@ services:
     network_mode: host
     restart: always
     volumes:
-      - ./shadowsocks/config.json:/etc/shadowsocks-rust/config.json/:ro
-      - ~/nginx_conf/certs-data/certs/:/data/certs/:ro
+      - ./shadowsocks/config.json:/etc/shadowsocks-rust/config.json/:rw
+      - ~/shadowsocks_config/certs-data/certs/:/data/certs/:rw

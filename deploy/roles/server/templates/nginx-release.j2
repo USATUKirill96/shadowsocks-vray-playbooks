@@ -13,7 +13,7 @@ server {
   }
 
 
-  location = /ss {
+  location = /{{ endpoint }}{
 		if ($http_upgrade != "websocket") { 
 			return 404;
 		}

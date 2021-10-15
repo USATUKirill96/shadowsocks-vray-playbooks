@@ -1,0 +1,85 @@
+- name: Updating and upgrading apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400 #One day
+
+
+- name: Installing dependencies
+  become: yes
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+
+  loop:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg-agent
+    - lsb-release
+    - software-properties-common
+
+
+- name: Adding GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+
+- name: Adding docker repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+
+
+- name: Installing docker
+  become: yes
+  apt:
+    name: "{{item}}"
+    state: latest
+    update_cache: yes
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-compose
+
+
+- name: Ensuring the user is added to the docker group
+  become: yes
+  ansible.builtin.user:
+    name: "{{ user }}"
+    groups: docker
+    append: true
+
+
+# reset_connection doesn't support conditionals.
+- name: Resetting connection so docker group is picked up
+  meta: reset_connection
+
+
+- name: Starting docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+ 
+
+- name: Opening firewall ports
+  become: yes
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+  
+  loop:
+    - 22
+    - 443
+    - 80
+
+
+- name: Setting firewall
+  become: yes
+  ufw:
+    state: '{{ "enabled" if enable_firewall else "disabled"}}'

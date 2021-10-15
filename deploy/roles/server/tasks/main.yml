@@ -1,13 +1,19 @@
 - name: Copying local files
   ansible.builtin.copy:
     src: "docker"
-    dest: "~/nginx_conf"
+    dest: "~/shadowsocks_config"
   tags: [nginx, keys, shadowsocks]
+
 
 - name: Setting .env file
   template:
     src: "env.j2"
-    dest: "~/nginx_conf/docker/.env"
+    dest: "~/shadowsocks_config/docker/.env"
+  tags: [nginx, keys, shadowsocks]
+
+- name: Preparing server
+  import_tasks: prepare.yml
+  tags: [prepare, never]
 
 - name: Running nginx
   import_tasks: nginx.yml

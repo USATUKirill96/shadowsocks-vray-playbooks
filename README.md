@@ -136,7 +136,7 @@ ansible-playbook -i inventories/hosts.ini --extra-vars "@variables.yml"  deploy/
 Запустите для генерации конфигов клиентских устройств. В папке `client-config` вы обнаружите следующие файлы:
 - shadowsocks-libev.config для настройки клиента ubuntu
 - config.json для настройки windows и mac клиентов
-- qrcode.png для настройки android и ios клиентов
+- qrcode.png для настройки android и ios клиентов [Источник скрипта](https://github.com/OriginCode/shadowsocks-libev-qrcode)
 
 # Настройка клиента <a id="client"></a>
 

@@ -11,17 +11,16 @@
     dest: "~/shadowsocks_config/docker/.env"
   tags: [nginx, keys, shadowsocks]
 
-- name: Preparing server
-  import_tasks: prepare.yml
-  tags: [prepare, never]
+
+- name: Seting certificate generation
+  import_tasks: certbot.yml
+  tags: keys
+
 
 - name: Running nginx
   import_tasks: nginx.yml
   tags: nginx
 
-- name: Seting certificate generation
-  import_tasks: certbot.yml
-  tags: keys
 
 - name: Running shadowsocks proxy server
   import_tasks: shadowsocks.yml

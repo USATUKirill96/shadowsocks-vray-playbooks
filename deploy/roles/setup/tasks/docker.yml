@@ -1,11 +1,3 @@
-- name: Updating and upgrading apt packages
-  become: true
-  apt:
-    upgrade: yes
-    update_cache: yes
-    cache_valid_time: 86400 #One day
-
-
 - name: Installing dependencies
   become: yes
   apt:
@@ -66,20 +58,3 @@
     state: started
     enabled: yes
  
-
-- name: Opening firewall ports
-  become: yes
-  ufw:
-    rule: allow
-    port: "{{ item }}"
-  
-  loop:
-    - 22
-    - 443
-    - 80
-
-
-- name: Setting firewall
-  become: yes
-  ufw:
-    state: '{{ "enabled" if enable_firewall else "disabled"}}'

@@ -24,17 +24,3 @@
     build: yes
     services: certbot
   register: output
-
-
-- name: Changing nginx config to release
-  template:
-    src: "nginx-release.j2"
-    dest: "~/shadowsocks_config/docker/nginx/default.conf"
-
-
-- name: Restarting nginx
-  docker_compose:
-    project_src: "~/shadowsocks_config/docker"
-    restarted: yes
-    services: "nginx"
-  register: output

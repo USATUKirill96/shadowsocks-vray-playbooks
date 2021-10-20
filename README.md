@@ -6,7 +6,7 @@
 4. [Настройка локального окружения](#local-setup)
 5. [Конфиги для сервера](#server-setup)
 6. [Выгрузка и теги](#deploy)
-7. [Как проверить, что всё завелось](#checks)
+7. [Настройка клиента](#client)
 8. [Типичные ошибки и их исправления](#faq)
 
 
@@ -103,24 +103,26 @@ pip install -r requirements.txt
 
 - server ansible_host= Домен, оформленный для сервера или айпи адрес сервера
 
-# Выгрузка и теги
+# Выгрузка и теги <a id="deploy"></a>
 
 ## Выгрузка на сервер
 
 Для работы прокси сервера на удаленной машине должен быть установлен docker, docker-compose, а также открыты 80 и 443 порты. Если этого нет, произведите первичную настройку командой
 
 ```bash
-ansible-playbook -i inventories/hosts.ini --extra-vars "@variables.yml"  deploy/server.yml --tags=prepare    
+ansible-playbook -i inventories/hosts.ini --extra-vars "@variables.yml"  deploy/setup.yml 
 ```
 
 После успешной настройки выгрузите прокси сервер и генератор ключей командой
 
 ```bash
-ansible-playbook -i inventories/hosts.ini --extra-vars "@variables.yml"  deploy/server.yml --tags=keys,shadowsocks    
+ansible-playbook -i inventories/hosts.ini --extra-vars "@variables.yml"  deploy/server.yml   
 ```
 
+Доступные теги для первичной настройки сервера:
+- disable-iptables - Очищает конфиги iptables. Актуально для серверов oracle, которые используют их как фаервол
+
 Доступные теги для выгрузки на сервер:
-- prepare - предварительная настройка сервера
 - nginx - выгрузка конфига nginx. Нужно запустить если решите изменить эндпоинт для прокси-сервера после запуска
 - shadowsocks - выгрузка shadowsocks.  Нужно запустить если решите изменить конфиги прокси-сервера
 - keys - выгрузка генерации ssl сертификата. Нужно  запустить если сменили адрес хоста для сервера
@@ -135,3 +137,51 @@ ansible-playbook -i inventories/hosts.ini --extra-vars "@variables.yml"  deploy/
 - shadowsocks-libev.config для настройки клиента ubuntu
 - config.json для настройки windows и mac клиентов
 - qrcode.png для настройки android и ios клиентов
+
+# Настройка клиента <a id="client"></a>
+
+## Ubuntu linux
+
+Выполните в терминале команды:
+```bash
+sudo apt update
+sudo apt install shadowsocks-libev
+sudo apt install shadowsocks-v2ray-plugin
+```
+Это установит клиентское приложение и плагин из репозитория
+
+Скопируйте клиентский конфиг в папку с конфигом ss-client:
+```bash
+cp client-config/shadowsocks-libev.json /etc/shadowsocks-libev/config.json
+```
+
+Запустите сервер командой
+```bash
+ss-local
+```
+
+## Android
+
+Установите [клиент shadowsocks](https://play.google.com/store/apps/details?id=com.github.shadowsocks) и 
+[плагин v2ray](https://play.google.com/store/apps/details?id=com.github.shadowsocks.plugin.v2ray)
+
+В самом клиенте нажмите на иконку с добавлением конфигураций
+
+![](docs/android.png)
+
+и выберите "Сканировать qr код"
+
+Отсканируйте qr код из client-config/qrcode.png
+
+## Windows
+Раздел требует доработки
+
+## Ios
+Как настроить Shadowrocket помогите
+
+# Типичные ошибки и их исправления <a id="faq"></a>
+
+## Сервера Oracle и iptables
+
+Если прокси по какой-то причине не заработал, запустите предварительную настройку и выгрузку заново,
+указав тег `disable-iptables` для предварительной настройки. Так же справедливо для серверов других провайдеров

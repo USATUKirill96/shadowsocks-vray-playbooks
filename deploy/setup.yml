@@ -1,0 +1,7 @@
+- hosts: remote
+  name: Предварительная настройка сервера
+  remote_user: "{{ user }}"
+
+  roles:
+    - role: setup
+

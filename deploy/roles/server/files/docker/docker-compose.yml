@@ -16,6 +16,7 @@ services:
 # Certificate generation
   certbot:
     container_name: certbot_container
+    restart: always
     network_mode: host
     volumes:
       - ~/shadowsocks_config/certs-data/letsencrypt/:/data/letsencrypt/:rw

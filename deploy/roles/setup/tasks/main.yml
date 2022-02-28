@@ -1,8 +1,8 @@
-# - name: Installing required packages
-#   import_tasks: packages.yml
+- name: Installing required packages
+  import_tasks: packages.yml
 
-# - name: Installing docker
-#   import_tasks: docker.yml
+- name: Installing docker
+  import_tasks: docker.yml
 
 - name: Setting network
   import_tasks: network.yml

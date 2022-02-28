@@ -18,8 +18,26 @@
 
 - name: Disabling iptables
   become: yes
-  command: iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT iptables -F
+  command: iptables -P INPUT ACCEPT
   tags: [never, disable-iptables]
+
+- name: Disabling iptables
+  become: yes
+  command: iptables -P FORWARD ACCEPT 
+  tags: [never, disable-iptables]
+
+
+- name: Disabling iptables
+  become: yes
+  command: iptables -P OUTPUT ACCEPT
+  tags: [never, disable-iptables]
+
+
+- name: Disabling iptables
+  become: yes
+  command: iptables -F
+  tags: [never, disable-iptables]
+
 
 
 - name: Resetting connection

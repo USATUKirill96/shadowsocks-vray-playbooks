@@ -18,7 +18,7 @@
 
 - name: Disabling iptables
   become: yes
-  command: iptables -F
+  command: iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT iptables -F
   tags: [never, disable-iptables]
 
 

@@ -6,7 +6,7 @@
     "password":"{{ proxy_password }}",
     "timeout":300,
     "method": "{{ method }}",
-    "fast_open": {{ fast_open }},
+    "fast_open": {{ "true" if fast_open else "false" }},
     "reuse_port": true,
     "nameserver": "1.1.1.1",
     "plugin":"v2ray-plugin",

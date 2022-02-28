@@ -15,12 +15,14 @@
 
 
 - name: Adding GPG key
+  become: yes
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
 
 - name: Adding docker repository
+  become: yes
   apt_repository:
     repo: deb https://download.docker.com/linux/ubuntu bionic stable
     state: present

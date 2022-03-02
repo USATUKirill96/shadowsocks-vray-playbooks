@@ -1,0 +1,22 @@
+- name: Creating client directory
+  file:
+    path: "../client-config"
+    state: directory
+
+- name: Templating shadowsocks-libev config
+  template:
+    src: "shadowsocks-libev.j2"
+    dest: "../client-config/shadowsocks-libev.json"
+    force: yes
+
+
+- name: Templating shadowsocks windows/mobile config
+  template:
+    src: "config.j2"
+    dest: "../client-config/config.json"
+    force: yes
+
+- name: Generating qr code for client setup
+  script: 
+    cmd: "../ss-qrcode/ss-qrcode.py --config ../client-config/config.json --s ../client-config/qrcode.png --no-open"
+    executable: "../venv/bin/python3"

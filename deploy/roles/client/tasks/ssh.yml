@@ -1,0 +1,4 @@
+- name: Change file permissions
+  ansible.builtin.file:
+    path: "../{{ ansible_ssh_private_key_file }}"
+    mode: "600"

@@ -9,7 +9,7 @@ importlib-metadata==4.8.1
 Jinja2==3.0.2
 MarkupSafe==2.0.1
 packaging==21.0
-Pillow==8.3.2
+Pillow==9.0.1
 platformdirs==2.4.0
 pycparser==2.20
 pyparsing==2.4.7

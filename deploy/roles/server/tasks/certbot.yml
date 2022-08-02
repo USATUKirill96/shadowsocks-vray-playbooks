@@ -24,3 +24,7 @@
     build: yes
     services: certbot
   register: output
+
+- name: Wait for the certificate to be generated
+  ansible.builtin.pause:
+    seconds: 30

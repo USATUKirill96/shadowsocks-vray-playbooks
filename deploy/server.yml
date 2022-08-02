@@ -1,6 +1,8 @@
 - hosts: remote
   name: Настройка сервера
   remote_user: "{{ user }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
   roles:
     - role: server

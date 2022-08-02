@@ -1,5 +1,7 @@
 [Тут](docs/azure.md) есть инструкция по настройке бесплатной машины от microsoft azure для вашего сервера
 
+[English versuion](README.eng.md) available here
+
 # Скрипт для автоматического деплоя Shadowsocks + v2ray на удаленном сервере и генерации клиенстких конфигов
 
 1. [Что это и для чего](#about)
@@ -176,9 +178,11 @@ ss-local
 Отсканируйте qr код из client-config/qrcode.png
 
 ## Windows
-Раздел требует доработки
+- Скачайте последнюю версию [shadowsocks](https://github.com/shadowsocks/shadowsocks-windows/releases) и распакуйте архив
+- Скачайте последнюю версию [v2ray](https://github.com/shadowsocks/v2ray-plugin/releases) распакуйте архив, переименуйте файл внутри в v2ray.exe и сохраните в папку с shadowsocks
+- Запустите Shadowsocks.exe, заполните поля как в конфиге client-config/shadowsocks-libev.json или импортируйте из него настройки
 
-## Ios
+## iOS
 Установите Shadowrocket из магазина приложений и отсканируйте qr код из папки client-config/qrcode.png
 
 # Типичные ошибки и их исправления <a id="faq"></a>
@@ -187,3 +191,7 @@ ss-local
 
 Если прокси по какой-то причине не заработал, запустите предварительную настройку и выгрузку заново,
 указав тег `disable-iptables` для предварительной настройки. Так же справедливо для серверов других провайдеров
+
+## Firewall от провайдера
+
+Проверьте, что в панели управления  VPS провайдера не установлены дополнительные ограничения

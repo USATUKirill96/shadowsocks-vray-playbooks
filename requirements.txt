@@ -1,4 +1,4 @@
-ansible==4.6.0
+ansible==7.0.0
 ansible-core==2.11.5
 backports.entry-points-selectable==1.1.0
 cffi==1.14.6

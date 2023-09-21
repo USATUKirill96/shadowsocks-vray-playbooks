@@ -2,7 +2,7 @@ ansible==4.6.0
 ansible-core==2.11.5
 backports.entry-points-selectable==1.1.0
 cffi==1.14.6
-cryptography==35.0.0
+cryptography==41.0.4
 distlib==0.3.3
 filelock==3.3.0
 importlib-metadata==4.8.1

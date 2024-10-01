@@ -65,7 +65,7 @@ v2ray зарекомендовал себя как отличный инстру
 ```bash
 sudo apt update
 sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt install python3.7
+sudo apt install python3.7 build-essential python3-dev
 ```
 
 ### Для MacOS
